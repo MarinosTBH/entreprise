@@ -2,33 +2,66 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; //fichier css bootstrap
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import { listerContacts } from "./actions/contact.actions";
 import React, { useEffect } from "react";
-import Table from "react-bootstrap/Table";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import List from "./components/list";
+import Ajouter from "./components/Ajouter";
+import Modifier from "./components/Modifier";
 
 function App() {
-  const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contact.contacts.contactlist);
+  // Lister les contacts
+  const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    dispatch(listerContacts());
-  }, []);
+    async function fetchData() {
+      const data = await axios.get("http://127.0.0.1:3000/");
+      setContacts(data.data);
+    }
+    fetchData();
+  }, []); // [someId]); // Or [] if effect doesn't need props or state
+
+  const [form, setForm] = useState({});
+  // Ajouter un contact
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Vérifier si les champs sont vides
+    if (
+      form?.nom == "" ||
+      form?.contact == "" ||
+      form?.cin == "" ||
+      form?.address == "" ||
+      form?.numero == ""
+    ) {
+      alert("veuillez remplir tous les champs");
+      return;
+    }
+
+    // faire appel à l'API
+    await axios.post("http://localhost:3000/", {
+      nom: form?.nom,
+      cin: form?.cin,
+      address: form?.address,
+      numero: form?.numero,
+    });
+
+    // Mettre à jour la liste des contacts
+    const data = await axios.get("http://localhost:3000/");
+    setContacts(data.data);
+
+    // Fermer la modal
+    handleClose();
+    setForm({});
+  };
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [Edit, setEdit] = useState(false);
-
-  const handleCloseEdit = () => setEdit(false);
-  const handleShowEdit = () => setEdit(true);
+  const [edit, setEdit] = useState(null);
+  const handleCloseEdit = () => setEdit(null);
 
   return (
     <div className="root">
@@ -40,136 +73,34 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="p-5">
-        <Button variant="primary" onClick={handleShow}>
-          ajouter
-        </Button>
-        <h2>liste des contacts</h2>
-        {contacts ? (
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>cin</th>
-                <th>nom et prenom</th>
-                <th>numuro</th>
-                <th>adress</th>
-                <th>action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact, index) => (
-                <tr key={index}>
-                  <td>{index}</td>
-                  <td>{contact.cin}</td>
-                  <td>{contact.nom}</td>
-                  <td>{contact.numuro}</td>
-                  <td>{contact.adress}</td>
-
-                  <td>
-                    <Button
-                      variant="success"
-                      className="me-2"
-                      onClick={handleShowEdit}
-                    >
-                      modifier
-                    </Button>
-                    <Button variant="danger">supprimer</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          "aucun contact trouver"
-        )}
-      </div>
+      <List
+        contacts={contacts}
+        handleShow={handleShow}
+        setEdit={setEdit}
+        setContacts={setContacts}
+      />
 
       {/*ajouter contact*/}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>ajouter contact</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>nom</Form.Label>
-              <Form.Control type="text" placeholder="Enter nom" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>contact</Form.Label>
-              <Form.Control type="text" placeholder="contact" />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="formBasicCheckbox"
-            ></Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <Ajouter
+        show={show}
+        handleClose={handleClose}
+        setForm={setForm}
+        form={form}
+        handleSubmit={handleSubmit}
+      />
 
       {/*modifier contact*/}
-
-      <Modal show={Edit} onHide={handleCloseEdit}>
-        <Modal.Header closeButton>
-          <Modal.Title>modifier contact</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>nom</Form.Label>
-              <Form.Control type="text" placeholder="Enter nom" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>contact</Form.Label>
-              <Form.Control type="text" placeholder="contact" />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="formBasicCheckbox"
-            ></Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEdit}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleCloseEdit}>
-            Save
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {edit && (
+        <Modifier
+          edit={edit}
+          setForm={setForm}
+          form={form}
+          handleCloseEdit={handleCloseEdit}
+          setContacts={setContacts}
+        />
+      )}
     </div>
   );
 }
 
 export default App;
-
-/*
-      <Container>
-      <Nav defaultActiveKey="/home" className="flex-column">
-      <escape></escape><escape></escape><escape></escape><escape></escape>
-      <escape></escape><escape></escape><escape></escape><escape></escape>
-      <escape></escape><escape></escape><escape></escape><escape></escape>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1">Option 2</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="disabled" disabled>
-          Disabled
-        </Nav.Link>
-      </Nav.Item>
-    </Nav>
-    </Container>
-    
-  */

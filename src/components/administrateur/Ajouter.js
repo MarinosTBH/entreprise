@@ -25,7 +25,7 @@ export default function Ajouter({
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Cin</Form.Label>
+            <Form.Label>cin</Form.Label>
             <Form.Control
               type="text"
               placeholder="Cin"
@@ -45,7 +45,23 @@ export default function Ajouter({
             <Form.Control
               type="text"
               placeholder="adresse"
-              onChange={(e) => setForm({ ...form, address: e.target.value })}
+              onChange={(e) => setForm({ ...form, adress: e.target.value })}
+            />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Matricule</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="matricul"
+              onChange={(e) => setForm({ ...form, matricul: e.target.value })}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>mod de passe</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="password"
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </Form.Group>
           <Form.Group

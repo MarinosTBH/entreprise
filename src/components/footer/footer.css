@@ -1,0 +1,36 @@
+.footer {
+    background-color: rgba(244, 244, 244, 0.918);
+    color: rgb(6, 6, 6);
+  }
+  
+  .footer-content {
+    padding: 40px;
+  }
+  
+  .footer-content p {
+    margin: 0;
+  }
+  
+  .footer-content ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .footer-content ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  .footer-content ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .footer-content ul li a {
+    color: rgb(77, 50, 249);
+    text-decoration: none;
+  }
+  
+  .footer-content ul li a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,43 @@
+.event-form-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+  }
+  
+  .event-form-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .event-form-container .form-group {
+    margin-bottom: 15px;
+  }
+  /* Header.css */
+
+.brand-text {
+  color: #888; /* Couleur grise */
+}
+
+  
+  
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .btn-group .btn {
+    margin: 5px;
+  }
+  
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .footer a {
+    color: blue;
+    text-decoration: none;
+  }
+  
+  

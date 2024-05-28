@@ -1,0 +1,22 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .container {
+    max-width: 600px;
+  }
+  
+  .card-header {
+    background-color: #ff7f50;
+    color: white;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+  }
+  
+  .btn-primary {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+  }
+  

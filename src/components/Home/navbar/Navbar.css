@@ -1,0 +1,98 @@
+.Navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 2.3rem;
+    height: 100%;
+    width: 250px;
+    background: rgba(5, 220, 62, 0.274);
+    padding: 20px;
+  }
+  
+  .Navbar .Logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .Navbar .logo {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  .logo-img {
+    width: 100%;
+    height: auto;
+  }
+  .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  .Logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #273727;
+    gap: 20px;
+  }
+  
+  .Logo-icon {
+    font-size: 1.4rem;
+  }
+  
+  .logo:hover {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+  
+  .Navbar--list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .Navbar--list .item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    color: #01050a;
+  }
+  
+  .Navbar--list .item:hover {
+    background: #00060e;
+    color: #dde6ed;
+    font-weight: bold;
+  }
+  .menu-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .menu-item:hover {
+    background-color: #e9ecefdc;
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+
+  
+
+
+

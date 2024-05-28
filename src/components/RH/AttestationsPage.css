@@ -1,0 +1,21 @@
+/* src/AttestationsPage.css */
+/* src/AttestationsPage.css */
+.main-content {
+  padding-top: 20px;
+}
+
+.header {
+  background-color: #f8f9fa;
+}
+
+.user-info {
+  font-size: 1rem;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.buttons .btn {
+  margin-right: 10px;
+}
